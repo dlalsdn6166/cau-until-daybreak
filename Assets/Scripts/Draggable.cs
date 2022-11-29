@@ -1,0 +1,118 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+[RequireComponent(typeof(Rigidbody))]
+[RequireComponent(typeof(Collider))]
+public class Draggable : Damagable
+{
+    public const float Threshhold = 10;
+
+    public Collider Collider { get; private set; }
+    new private Renderer renderer;
+    private static Material outline;
+    private bool highlighted = false;
+    private List<Material> materials = new List<Material>();
+
+    protected void Awake()
+    {
+        Rigidbody = GetComponent<Rigidbody>();
+        Collider = GetComponent<Collider>();
+        renderer = GetComponent<Renderer>();
+        if (outline == null)
+            outline = Resources.Load<Material>("Outline");
+    }
+
+    public void Highlight(bool value)
+    {
+        if (value == highlighted)
+            return;
+        highlighted = value;
+        materials.Clear();
+        materials.AddRange(renderer.sharedMaterials);
+        if (highlighted)
+            materials.Add(outline);
+        else
+            materials.Remove(outline);
+        renderer.sharedMaterials = materials.ToArray();
+    }
+
+    protected virtual void OnCollisionEnter(Collision collision)
+    {
+        Rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
+
+        if (collision != null)
+        {
+            // TODO collision sound
+            if (collision.impulse.magnitude < Threshhold * Rigidbody.mass)
+                return;
+            Damage(collision.impulse.magnitude);
+        }
+    }
+}
+
+public abstract class Damagable : Poolable
+{
+    public float hp;
+    protected float current;
+
+    protected void OnEnable() => Init();
+
+    public virtual void Damage(float damage)
+    {
+        current -= damage;
+        if (current <= 0)
+            Dead();
+    }
+    protected virtual void Dead()
+    {
+        // TODO sound/particle on broken
+        Enqueue();
+    }
+
+    protected override void Init() => current = hp;
+}
+
+public abstract class Poolable : MonoBehaviour
+{
+    private Queue<Poolable> pool = new Queue<Poolable>();
+    public Rigidbody Rigidbody;
+    const int max = 20;
+
+    private void Reset()
+    {
+        Rigidbody = GetComponent<Rigidbody>();
+    }
+
+    public Poolable Get(Vector3 position, Quaternion rotation)
+    {
+        Poolable result;
+        if (pool.Count > 0)
+        {
+            result = pool.Dequeue();
+            result.transform.position = position;
+            result.transform.rotation = rotation;
+        }
+        else
+        {
+            result = Instantiate(this, position, rotation);
+            result.pool = pool;
+        }
+        result.gameObject.SetActive(true);
+        return result;
+    }
+
+    protected abstract void Init();
+
+    protected void Enqueue()
+    {
+        if (pool.Count < max)
+        {
+            pool.Enqueue(this);
+            gameObject.transform.parent = null;
+            gameObject.SetActive(false);
+            return;
+        }
+        Destroy(gameObject);
+    }
+}
