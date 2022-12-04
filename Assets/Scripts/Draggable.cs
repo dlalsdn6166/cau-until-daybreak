@@ -14,6 +14,8 @@ public class Draggable : Damagable
     private bool highlighted = false;
     private List<Material> materials = new List<Material>();
 
+    private static int playerMask;
+
     protected void Awake()
     {
         Rigidbody = GetComponent<Rigidbody>();
@@ -21,6 +23,8 @@ public class Draggable : Damagable
         renderer = GetComponent<Renderer>();
         if (outline == null)
             outline = Resources.Load<Material>("Outline");
+
+        playerMask = LayerMask.NameToLayer("Player");
     }
 
     public void Highlight(bool value)
@@ -43,7 +47,8 @@ public class Draggable : Damagable
 
         if (collision != null)
         {
-            // TODO collision sound
+            if (collision.gameObject.layer == playerMask)
+                return;
             if (collision.impulse.magnitude < Threshhold * Rigidbody.mass)
                 return;
             Damage(collision.impulse.magnitude);
@@ -56,17 +61,29 @@ public abstract class Damagable : Poolable
     public float hp;
     protected float current;
 
+    public AudioClip collisionClip;
+    public AudioClip deadClip;
+
+    public AudioSource audioSource;
+
     protected void OnEnable() => Init();
 
     public virtual void Damage(float damage)
     {
         current -= damage;
         if (current <= 0)
+        {
             Dead();
+            return;
+        }
+        if (collisionClip)
+            audioSource.PlayOneShot(collisionClip, Mathf.Max(1, damage / 15));
     }
     protected virtual void Dead()
     {
         // TODO sound/particle on broken
+        if (deadClip)
+            audioSource.PlayOneShot(deadClip);
         Enqueue();
     }
 

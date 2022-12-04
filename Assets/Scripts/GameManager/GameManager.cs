@@ -42,7 +42,7 @@ public class GameManager : MonoBehaviour
         }
 
         // TODO Game result
-        // Pause(true);
+        Pause(true);
         Debug.Log("win");
     }
 }

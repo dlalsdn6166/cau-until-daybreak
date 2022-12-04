@@ -6,6 +6,7 @@ public class PlayerCharacterController : MonoBehaviour
     public Camera playerCamera;
     public CharacterController controller;
 
+    public float hp = 1000;
     public float speed = 6;
     public float jumpForce = 8;
     public float RotationSpeed = 5;
@@ -15,16 +16,25 @@ public class PlayerCharacterController : MonoBehaviour
     private Vector3 movement = Vector3.zero;
     private float pitch = 0;
 
-    private void OnTriggerEnter(Collider other)
-    {
-        Debug.Log(other?.name);
-    }
-
     private void OnCollisionEnter(Collision collision)
     {
-        Debug.Log("Player hit " + collision.gameObject.name);
+        if (collision.gameObject.layer == enemyMask)
+        {
+            hp -= collision.impulse.magnitude;
+            if (hp < 0)
+                Dead();
+        }
+    }
 
-        // TODO player damage
+    private void Dead()
+    {
+        // Player dead
+    }
+
+    private int enemyMask;
+    private void Awake()
+    {
+        enemyMask = LayerMask.NameToLayer("AI");
     }
 
     void Update()
