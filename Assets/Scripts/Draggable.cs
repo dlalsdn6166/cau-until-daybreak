@@ -14,6 +14,8 @@ public class Draggable : Damagable
     private bool highlighted = false;
     private List<Material> materials = new List<Material>();
 
+
+
     private static int playerMask;
 
     protected void Awake()

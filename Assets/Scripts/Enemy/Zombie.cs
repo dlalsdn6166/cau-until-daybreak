@@ -138,8 +138,12 @@ public class Zombie : Damagable
     public override void Damage(float damage)
     {
         if (state == State.Dead)
+        {
+            audioSource.PlayOneShot(deadClip);
             return;
+        }
         current -= damage;
+        audioSource.PlayOneShot(collisionClip, Mathf.Max(1, damage / 50));
         if (current <= 0)
         {
             audioSource.PlayOneShot(deadClip);

@@ -14,7 +14,8 @@ GameObject:
   - component: {fileID: 923353584279927718}
   - component: {fileID: 1755959830741993024}
   - component: {fileID: 923353584279927719}
-  - component: {fileID: 474138683}
+  - component: {fileID: 6467627752263325949}
+  - component: {fileID: 8894006503286494777}
   m_Layer: 0
   m_Name: explosive
   m_TagString: Untagged
@@ -29,7 +30,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 923353584279927725}
-  m_LocalRotation: {x: -0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalRotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
   m_LocalPosition: {x: 3.9887204, y: 1.260375, z: 48.146633}
   m_LocalScale: {x: 3.3400521, y: 3.340054, z: 4.3815503}
   m_ConstrainProportionsScale: 0
@@ -130,14 +131,26 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
-  hp: 1
+  hp: 10
   collisionClip: {fileID: 0}
   deadClip: {fileID: 8300000, guid: 1c34ab901807f434e946fcc903af4a40, type: 3}
-  audioSource: {fileID: 474138683}
-  effects: {fileID: 1299052848153399221, guid: 1c520bc8301bd4248ab6566fb45020d9, type: 3}
+  audioSource: {fileID: 0}
   radius: 5
-  force: 700
---- !u!82 &474138683
+  force: 30
+--- !u!65 &6467627752263325949
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 923353584279927725}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.2688608, y: 0.26477635, z: 0.31357104}
+  m_Center: {x: 0.00000000745058, y: 0, z: 0.17769232}
+--- !u!82 &8894006503286494777
 AudioSource:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
