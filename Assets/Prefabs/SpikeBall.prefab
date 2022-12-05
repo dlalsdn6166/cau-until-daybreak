@@ -129,10 +129,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
-  hp: Infinity
+  hp: 2000
   collisionClip: {fileID: 8300000, guid: 2e071f5b8b8467d45a5e6e24c23c6ad4, type: 3}
   deadClip: {fileID: 0}
   audioSource: {fileID: 7273608908377064898}
+  effects: {fileID: 7008961493002315906, guid: 71c988566231d5c45991b91541705d9b, type: 3}
 --- !u!82 &7273608908377064898
 AudioSource:
   m_ObjectHideFlags: 0

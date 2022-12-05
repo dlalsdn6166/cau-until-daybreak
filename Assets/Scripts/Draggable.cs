@@ -14,8 +14,6 @@ public class Draggable : Damagable
     private bool highlighted = false;
     private List<Material> materials = new List<Material>();
 
-
-
     private static int playerMask;
 
     protected void Awake()
@@ -45,12 +43,13 @@ public class Draggable : Damagable
 
     protected virtual void OnCollisionEnter(Collision collision)
     {
+        if (collision.gameObject.layer == playerMask)
+            return;
+
         Rigidbody.collisionDetectionMode = CollisionDetectionMode.Discrete;
 
         if (collision != null)
         {
-            if (collision.gameObject.layer == playerMask)
-                return;
             if (collision.impulse.magnitude < Threshhold * Rigidbody.mass)
                 return;
             Damage(collision.impulse.magnitude);
@@ -64,11 +63,9 @@ public abstract class Damagable : Poolable
     protected float current;
 
     public AudioClip collisionClip;
-    public AudioClip deadClip;
-
     public AudioSource audioSource;
 
-    public ParticleSystem effects;
+    public Effect effects;
 
     protected void OnEnable() => Init();
 
@@ -85,10 +82,8 @@ public abstract class Damagable : Poolable
     }
     protected virtual void Dead()
     {
-        // TODO sound/particle on broken
-        effects.Play();
-        if (deadClip)
-            audioSource.PlayOneShot(deadClip);
+        if (effects)
+            effects.Play(transform);
         Enqueue();
     }
 

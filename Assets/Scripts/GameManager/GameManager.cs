@@ -8,6 +8,8 @@ public class GameManager : MonoBehaviour
     public PlayerCharacterController Player { get; private set; }
 
     public Stage[] stages;
+
+    public int CurrentStage { get; private set; }
     public bool Paused { get; private set; }
 
     private void Awake()
@@ -32,10 +34,10 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator Flow()
     {
-        for (int i = 0; i < stages.Length; i++)
+        for (CurrentStage = 0; CurrentStage < stages.Length; CurrentStage++)
         {
-            yield return new WaitForSeconds(stages[i].interval);
-            stages[i].Trigger();
+            yield return new WaitForSeconds(stages[CurrentStage].interval);
+            stages[CurrentStage].Trigger();
 
             while (Zombie.Count > 0)
                 yield return null;
