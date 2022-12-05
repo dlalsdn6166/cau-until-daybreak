@@ -47,7 +47,8 @@ public class Zombie : Damagable
         worldMask = LayerMask.GetMask("World");
     }
 
-    public static int Count { get; private set; }
+    public static int Count;
+    public static int KillScore;
 
     protected override void Init()
     {
@@ -134,6 +135,7 @@ public class Zombie : Damagable
             case State.Dead:
                 SimulateRagdoll(true);
                 Count--;
+                KillScore++;
                 until = Time.time + 5;
                 break;
 

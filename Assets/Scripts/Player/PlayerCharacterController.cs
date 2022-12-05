@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
+using TMPro;
 
 public class PlayerCharacterController : MonoBehaviour
 {
@@ -16,6 +18,8 @@ public class PlayerCharacterController : MonoBehaviour
     private Vector3 movement = Vector3.zero;
     private float pitch = 0;
 
+    public bool Interactable { get; private set; }
+    
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.layer == enemyMask)
@@ -26,9 +30,10 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
+    public bool isDead = false;
     private void Dead()
     {
-        // Player dead
+        isDead = true;
     }
 
     private int enemyMask;
@@ -66,17 +71,11 @@ public class PlayerCharacterController : MonoBehaviour
 
         Ray ray = playerCamera.ViewportPointToRay(new Vector3(0.5f, 0.5f));
         Physics.Raycast(ray, out RaycastHit hit, interactRange);
-        var Interactable = hit.collider?.GetComponent<Interactable>();
-        if (Interactable)
-        {
-            // TODO UI interactable
-            if (Interactable.IsValid && Input.GetButton("Interact"))
-                Interactable.Interact();
-        }
-        else
-        {
-
-        }
+        var interactable = hit.collider?.GetComponent<Interactable>();
+        Interactable = interactable;
+        if (interactable)
+            if (interactable.IsValid && Input.GetKeyDown(KeyCode.E))
+                interactable.Interact();
     }
 }
 
