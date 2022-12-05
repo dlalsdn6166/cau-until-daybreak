@@ -23,7 +23,9 @@ public class Explosive : Draggable
             colliders[i].GetComponent<Damagable>()?.Damage(force);
             rigidbody = colliders[i].attachedRigidbody;
             if (rigidbody)
+            {
                 rigidbody.AddExplosionForce(force, center, radius, 1, ForceMode.Impulse);
+            }
         }
         base.Dead();
     }

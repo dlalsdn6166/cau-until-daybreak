@@ -14,6 +14,8 @@ public class Draggable : Damagable
     private bool highlighted = false;
     private List<Material> materials = new List<Material>();
 
+
+
     private static int playerMask;
 
     protected void Awake()
@@ -66,6 +68,8 @@ public abstract class Damagable : Poolable
 
     public AudioSource audioSource;
 
+    public ParticleSystem effects;
+
     protected void OnEnable() => Init();
 
     public virtual void Damage(float damage)
@@ -82,6 +86,7 @@ public abstract class Damagable : Poolable
     protected virtual void Dead()
     {
         // TODO sound/particle on broken
+        effects.Play();
         if (deadClip)
             audioSource.PlayOneShot(deadClip);
         Enqueue();
