@@ -18,11 +18,9 @@ public class Explosive : Draggable
         Rigidbody rigidbody;
         for (int i = 0; i < colliders.Length; i++)
         {
-            if (colliders[i].gameObject == gameObject)
+            if (colliders[i] == Collider)
                 continue;
-            var damagable = colliders[i].GetComponent<Damagable>();
-            if (damagable?.hp > 0)
-                damagable.Damage(force);
+            colliders[i].GetComponent<Damagable>()?.Damage(force);
             rigidbody = colliders[i].attachedRigidbody;
             if (rigidbody)
             {

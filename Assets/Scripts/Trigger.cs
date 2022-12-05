@@ -2,22 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-[RequireComponent(typeof(AudioSource))]
 public class Trigger : Interactable
 {
     public Triggable target;
     public float seconds;
     private WaitForSeconds wait;
-    private AudioSource audioSource;
-    public AudioClip click;
-    public AudioClip note;
 
     public override bool IsValid { get; protected set; } = true;
-
-    private void Awake()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
     private void Start()
     {
@@ -29,7 +20,6 @@ public class Trigger : Interactable
         if (!IsValid)
             return;
         IsValid = false;
-        audioSource.PlayOneShot(click);
         target.Trigger();
         StartCoroutine(waiter());
     }
@@ -38,7 +28,6 @@ public class Trigger : Interactable
     {
         // TODO trigger sound/animation
         yield return wait;
-        audioSource.PlayOneShot(note);
         IsValid = true;
     }
 

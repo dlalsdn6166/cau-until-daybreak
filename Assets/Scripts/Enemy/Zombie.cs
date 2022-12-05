@@ -8,7 +8,6 @@ public class Zombie : Damagable
 {
     public NavMeshAgent Agent { get; private set; }
     public Animator Animator { get; private set; }
-    public AudioClip deadClip;
 
     public Transform head;
     private RagdollChild[] ragdoll;
@@ -68,7 +67,10 @@ public class Zombie : Damagable
             {
                 case State.Down:
                     if (until < Time.time)
+                    {
                         StateChange(State.Up);
+                        until = Time.time + 1;
+                    }
                     break;
                 case State.Up:
                     // wait animation
@@ -91,8 +93,9 @@ public class Zombie : Damagable
                     }
                     break;
                 case State.Attack:
-                    if (until < Time.time)
-                        StateChange(State.Up);
+                    // TODO zombie attack
+                    if (true)
+                        StateChange(State.Follow);
                     break;
                 case State.Dead:
                     if (until < Time.time)
@@ -116,6 +119,10 @@ public class Zombie : Damagable
                 SimulateRagdoll(false);
                 break;
             case State.Follow:
+                if (Agent.isOnNavMesh)
+                    Agent.isStopped = false;
+                else
+                    return;
                 break;
             case State.Attack:
                 SimulateRagdoll(true);
@@ -123,7 +130,6 @@ public class Zombie : Damagable
                 transform.forward = dist;
                 var velocity = dist.normalized * range - Physics.gravity * (dist.magnitude / range * 0.5f);
                 Rigidbody.velocity = 60 / 9.375f * velocity;
-                until = Time.time + 3;
                 break;
             case State.Dead:
                 SimulateRagdoll(true);
@@ -137,6 +143,8 @@ public class Zombie : Damagable
 
     public override void Damage(float damage)
     {
+        // TODO zombie damaged sound
+
         if (state == State.Dead)
         {
             audioSource.PlayOneShot(deadClip);
@@ -145,14 +153,8 @@ public class Zombie : Damagable
         current -= damage;
         audioSource.PlayOneShot(collisionClip, Mathf.Max(1, damage / 50));
         if (current <= 0)
-        {
-            audioSource.PlayOneShot(deadClip);
             StateChange(State.Dead);
-        }
         else
-        {
-            audioSource.PlayOneShot(collisionClip, Mathf.Max(1, damage / 50));
             StateChange(State.Down);
-        }
     }
 }
