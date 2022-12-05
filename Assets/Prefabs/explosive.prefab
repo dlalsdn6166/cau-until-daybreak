@@ -37,7 +37,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: -90, y: 0, z: 0}
 --- !u!33 &923353584279927712
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -133,8 +133,8 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   hp: 10
   collisionClip: {fileID: 0}
-  deadClip: {fileID: 8300000, guid: 1c34ab901807f434e946fcc903af4a40, type: 3}
   audioSource: {fileID: 0}
+  effects: {fileID: 1299052848153399221, guid: 1c520bc8301bd4248ab6566fb45020d9, type: 3}
   radius: 5
   force: 30
 --- !u!65 &6467627752263325949
