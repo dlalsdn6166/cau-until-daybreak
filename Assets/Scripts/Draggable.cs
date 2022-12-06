@@ -73,6 +73,8 @@ public abstract class Damagable : Poolable
 
     public virtual void Damage(float damage)
     {
+        if (current <= 0)
+            return;
         current -= damage;
         if (current <= 0)
         {

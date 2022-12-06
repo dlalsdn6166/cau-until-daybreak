@@ -9,30 +9,32 @@ public class GameManager : MonoBehaviour
 
     public Stage[] stages;
 
-    public int CurrentStage { get; private set; }
-    public bool Paused { get; private set; }
+    public event UnityEngine.Events.UnityAction<bool> Gameover;
 
     public int CurrentStage { get; private set; }
     public bool Paused { get; private set; }
-    public bool win = false;
+
     private void Awake()
     {
         Instance = this;
         Player = FindObjectOfType<PlayerCharacterController>();
     }
 
+    Coroutine ee;
+
     public void Pause(bool value)
     {
         Paused = value;
-        Cursor.visible = !value;
-        Cursor.lockState = value ? CursorLockMode.None : CursorLockMode.Locked;
+        Cursor.visible = value;
+        Cursor.lockState = value ? CursorLockMode.None: CursorLockMode.Locked;
         Time.timeScale = value ? 0 : 1;
     }
 
-    private void Start()
+    public void Start()
     {
-        Pause(false);
-        StartCoroutine(Flow());
+        Pause(false);        
+        if (ee == null)
+            ee = StartCoroutine(Flow());
     }
 
     private IEnumerator Flow()
@@ -46,9 +48,8 @@ public class GameManager : MonoBehaviour
                 yield return null;
         }
 
-        // TODO Game result
-        win = true;
-        //Pause(true);
-        Debug.Log("win");
+        Gameover?.Invoke(true);
     }
+
+    public void playerdead() => Gameover?.Invoke(false);
 }

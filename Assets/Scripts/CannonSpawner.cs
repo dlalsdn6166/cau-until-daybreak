@@ -12,7 +12,7 @@ public class CannonSpawner : AbstractSpawner
         // TODO spawner sound/particle
         var result = prefab.Get(transform.position, inheritRotation ? transform.rotation : Quaternion.identity);
         result.Rigidbody?.AddForce(transform.forward * force, ForceMode.VelocityChange);
-        audioSource.PlayOneShot(spawnClip);
+        effect?.Play(transform);
     }
 
     private void OnDrawGizmos()

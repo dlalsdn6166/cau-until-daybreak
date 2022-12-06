@@ -7,7 +7,7 @@ public abstract class AbstractSpawner : Triggable
 {
     public Poolable prefab;
     protected AudioSource audioSource;
-    public AudioClip spawnClip;
+    public Effect effect;
 
     protected void Awake()
     {
@@ -20,6 +20,6 @@ public class Spawner : AbstractSpawner
     public override void Trigger()
     {
         var result = prefab.Get(transform.position, transform.rotation);
-        audioSource.PlayOneShot(spawnClip);
+        effect?.Play(transform);
     }
 }

@@ -30,11 +30,7 @@ public class PlayerCharacterController : MonoBehaviour
         }
     }
 
-    public bool isDead = false;
-    private void Dead()
-    {
-        isDead = true;
-    }
+    private void Dead() => GameManager.Instance.playerdead();
 
     private int enemyMask;
     private void Awake()

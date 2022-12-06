@@ -131,9 +131,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
   hp: 10
-  collisionClip: {fileID: 0}
-  deadClip: {fileID: 8300000, guid: 1c34ab901807f434e946fcc903af4a40, type: 3}
-  audioSource: {fileID: 0}
+  collisionClip: {fileID: 8300000, guid: 45f5b7a49c8f758479e5c9dbcd28e426, type: 3}
+  audioSource: {fileID: 8894006503286494777}
+  effects: {fileID: 1299052848153399221, guid: 1c520bc8301bd4248ab6566fb45020d9, type: 3}
   radius: 5
   force: 30
 --- !u!65 &6467627752263325949
@@ -159,7 +159,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 1c34ab901807f434e946fcc903af4a40, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 45f5b7a49c8f758479e5c9dbcd28e426, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 0.138
   m_Pitch: -1.02

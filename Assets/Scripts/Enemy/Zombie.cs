@@ -156,4 +156,9 @@ public class Zombie : Damagable
             StateChange(State.Down);
         }
     }
+
+    public void AddForce(Vector3 vel)
+    {
+        Rigidbody.AddForce(60 / 9.375f * vel, ForceMode.Impulse);
+    }
 }

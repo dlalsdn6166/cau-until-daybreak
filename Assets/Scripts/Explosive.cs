@@ -21,8 +21,18 @@ public class Explosive : Draggable
             if (colliders[i].gameObject == gameObject)
                 continue;
             var damagable = colliders[i].GetComponent<Damagable>();
-            if (damagable?.hp > 0)
-                damagable.Damage(force);
+            if (damagable)
+            {
+                if (damagable is Zombie z)
+                {
+                    var s = z.transform.position - center;
+                    z.Damage(force * 10);
+                    z.AddForce(s.normalized * force);
+                    continue;
+                }
+                damagable.Damage(force * 10);
+            }
+            
             rigidbody = colliders[i].attachedRigidbody;
             if (rigidbody)
             {

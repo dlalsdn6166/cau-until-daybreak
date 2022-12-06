@@ -26,6 +26,7 @@ public class Gun : MonoBehaviour
         {
             // out of sight
             draggable.transform.SetParent(null);
+            draggable.gameObject.layer = layer;
             if (Vector3.Dot(playerCamera.transform.forward, draggable.transform.position - playerCamera.transform.position) < 0 || !Input.GetMouseButton(1))
             {
                 draggable = null;
