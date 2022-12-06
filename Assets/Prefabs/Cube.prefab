@@ -131,7 +131,6 @@ MonoBehaviour:
   Rigidbody: {fileID: 0}
   hp: 200
   collisionClip: {fileID: 8300000, guid: 45f5b7a49c8f758479e5c9dbcd28e426, type: 3}
-  deadClip: {fileID: 0}
   audioSource: {fileID: 4278078610466447530}
   effects: {fileID: -5304038896247890669, guid: d46f7162e1112114f959b6679e5a6040, type: 3}
 --- !u!82 &4278078610466447530
@@ -146,7 +145,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 8300000, guid: 45f5b7a49c8f758479e5c9dbcd28e426, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0.3
   m_Pitch: 1
   Loop: 0
   Mute: 0

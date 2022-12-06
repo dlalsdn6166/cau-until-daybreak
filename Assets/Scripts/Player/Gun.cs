@@ -12,6 +12,7 @@ public class Gun : MonoBehaviour
     public float dragRange = 20;
     public float holdRange = 2;
 
+
     private Draggable draggable;
     private bool dragging = false;
 
