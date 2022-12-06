@@ -16,7 +16,7 @@ public class Draggable : Damagable
 
 
 
-    private static int playerMask;
+    protected static int playerMask;
 
     protected void Awake()
     {

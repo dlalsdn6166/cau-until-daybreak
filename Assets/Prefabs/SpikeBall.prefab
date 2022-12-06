@@ -32,7 +32,6 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -6.537, y: 2.2, z: 0.086}
   m_LocalScale: {x: 0.67, y: 0.67, z: 0.67}
-  m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -129,10 +128,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Rigidbody: {fileID: 0}
-  hp: Infinity
+  hp: 5000
   collisionClip: {fileID: 8300000, guid: 2e071f5b8b8467d45a5e6e24c23c6ad4, type: 3}
-  deadClip: {fileID: 0}
   audioSource: {fileID: 7273608908377064898}
+  effects: {fileID: 0}
 --- !u!82 &7273608908377064898
 AudioSource:
   m_ObjectHideFlags: 0

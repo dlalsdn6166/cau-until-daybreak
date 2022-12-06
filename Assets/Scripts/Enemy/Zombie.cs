@@ -48,7 +48,8 @@ public class Zombie : Damagable
         worldMask = LayerMask.GetMask("World");
     }
 
-    public static int Count { get; private set; }
+    public static int Count { get; set; }
+    public static int KillScore { get; set; }
 
     protected override void Init()
     {
@@ -128,6 +129,7 @@ public class Zombie : Damagable
             case State.Dead:
                 SimulateRagdoll(true);
                 Count--;
+                KillScore++;
                 until = Time.time + 5;
                 break;
 
@@ -138,10 +140,8 @@ public class Zombie : Damagable
     public override void Damage(float damage)
     {
         if (state == State.Dead)
-        {
-            audioSource.PlayOneShot(deadClip);
             return;
-        }
+
         current -= damage;
         audioSource.PlayOneShot(collisionClip, Mathf.Max(1, damage / 50));
         if (current <= 0)
@@ -151,7 +151,8 @@ public class Zombie : Damagable
         }
         else
         {
-            audioSource.PlayOneShot(collisionClip, Mathf.Max(1, damage / 50));
+            if (!audioSource.isPlaying)
+                audioSource.PlayOneShot(collisionClip, Mathf.Max(1, damage / 50));
             StateChange(State.Down);
         }
     }

@@ -7,12 +7,11 @@ public class Arrow : Draggable
 
     protected override void OnCollisionEnter(Collision collision)
     {
-
+        if (collision.gameObject.layer == playerMask)
+            return;
 
         // TODO collision on instantiate
         base.OnCollisionEnter(collision);
-
-
 
         if (Vector3.Dot(transform.forward, Rigidbody.velocity) < 0)
             return;
