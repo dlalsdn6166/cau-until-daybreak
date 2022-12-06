@@ -12,6 +12,9 @@ public class GameManager : MonoBehaviour
     public int CurrentStage { get; private set; }
     public bool Paused { get; private set; }
 
+    public int CurrentStage { get; private set; }
+    public bool Paused { get; private set; }
+    public bool win = false;
     private void Awake()
     {
         Instance = this;
@@ -44,7 +47,8 @@ public class GameManager : MonoBehaviour
         }
 
         // TODO Game result
-        Pause(true);
+        win = true;
+        //Pause(true);
         Debug.Log("win");
     }
 }
